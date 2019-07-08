@@ -1,0 +1,111 @@
+每日一练：
+把项目中前两步搞定！
+
+(9:20 - 9:40)
+1、准备工作
+
+启动apache和mysql
+
+2、搭建项目架子
+(:- 16:00)
+①在app目录下创建components目录
+②在components目录中创建login.js main.js productList.js三个文件
+③在index.android.js中配置路由词典，让默认访问login.js
+
+
+
+
+3、实现具体页面需求
+ 具体准备工作：
+  ①启动开发服务器 npm start
+  ②启动模拟器
+  ③启动xampp中的apache和mysql
+  ④启动web服务器:node app.js
+ 
+ 3.1 Login (:- 17:20)
+   ①完成基本的页面要求
+   ②点击登录，要完成与服务器端的通信
+    启动mysql、web服务器(node执行C:\xampp\htdocs\codes\xz_api下的app.js)
+    
+    细节1：fetch怎么发post请求并传参？
+     var config={
+      method:"POST",
+      headers:{
+        "Content-Type":"application/x-www-form-urlencoded"
+      },
+      body:"uname=dingding&upwd=123456"
+     }
+     fetch(url,config).then().then()
+    细节2：node服务器如何接受post请求url编码之后的参数
+     server.use(bodyParser.urlencoded({extended:false}))
+
+    http://172.163.**.**:8080/user/login
+  
+   ③处理登录后的结果(:- 9:55)
+    返回的结果code是200，跳转到MainComponent;
+    否则清空两个输入框
+	
+  3.2 Main
+    实现第一行的布局
+      FlexBox(
+	flexDirection
+	justifyContent
+	alignItems
+	)
+    实现第二行的布局：
+	StyleSheet
+
+    实现第三\四行：
+	图片是可以被点击的！、
+	点击商品管理--》跳转到productList
+
+  3.3 ProductList(:-14:30)
+	①从服务器端加载产品列表
+	 http://172.168.100.200:8080/product/list
+	②将服务器端的返回的数据显示在FlatList
+	 图片：拷贝product文件夹到c:/xampp/htdocs/img
+	 http://172.168.100.200/img/product/md/**
+
+        (:- 15:25)
+	③解决key的问题
+	 在数据源头 给每一个对象添加一个key(值是唯一的)
+
+	④实现加载更多的效果
+
+	 onEndReached
+	 http://localhost:8080/product/list?pno=2
+	 concat
+
+	(:- 16:25)
+	⑤点击列表项，跳转到detail
+	  步骤1：创建文件   
+	   app/components/detail.js
+	   实现一个组件类DetailComponent,分配一个路由地址detail
+	  步骤2：
+	   点击商品列表中的列表项，跳转到detail，并且将商品的lid发送给详情页
+	  步骤3：详情也接收到参数，打印在终端
+	   
+  
+  3.4 详情页
+     
+     步骤1：详情页接收到参数，请求指定lid所对应的详情数据
+     http://172.163.100.200:8080/product/detail?lid=2
+     (:- 17:30)
+     步骤2：创建一个文件global.js  封装一个对象并导出
+      对象baseUrl:"http://172.163.100.200:8080"
+      将详情页的url替换成所封装对象属性的值
+
+     步骤3：数据保存，渲染
+      result.details.picList
+      result.details.title
+      result.details.subtitle
+      图片实现一个轮播效果：每隔0.5s 切换下一张图片
+     
+     任务：
+      ①在详情中处理好图片轮播的问题
+       什么时候启动/关闭？
+      ②将main页面的行单独的封装一个组件
+       row.js 组件:Row
+	this.props.children       
+ 
+     项目总结
