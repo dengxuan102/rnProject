@@ -9,11 +9,16 @@ import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import productComponent from './app/components/productList'
 import loginComponent from './app/components/login'
 import mainComponent from './app/components/main'
+import detailComponent from './app/components/detail'
 import { createStackNavigator } from 'react-navigation'
 
 var myNavigator = createStackNavigator({
   product: {
     screen: productComponent
+  },
+
+  detail: {
+    screen: detailComponent
   },
   main: {
     screen: mainComponent
