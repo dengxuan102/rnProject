@@ -6,23 +6,21 @@
 
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
-
+import productComponent from './app/components/productList'
 import loginComponent from './app/components/login'
 import mainComponent from './app/components/main'
-import productListComponent from './app/components/productList'
-
 import { createStackNavigator } from 'react-navigation'
 
 var myNavigator = createStackNavigator({
-  login: {
-    screen: loginComponent
+  product: {
+    screen: productComponent
   },
   main: {
     screen: mainComponent
   },
-  productList: {
-    screen: productListComponent
-  }
+  login: {
+    screen: loginComponent
+  },
 })
 
 export default class myapp extends Component {

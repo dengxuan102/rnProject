@@ -13,7 +13,7 @@ export default class loginComponent extends Component {
   }
   pwdChangeText = (msg) => {
     this.setState({ pwd: msg })
-    console.log(this.state.pwd)
+    // console.log(this.state.pwd)
   }
 
   handleLogin = () => {
@@ -23,14 +23,36 @@ export default class loginComponent extends Component {
         ToastAndroid.SHORT,
         ToastAndroid.TOP
       );
-    }else if(this.state.pwd==''){
+    } else if (this.state.pwd == '') {
       ToastAndroid.showWithGravity(
         "密码不能为空",
         ToastAndroid.SHORT,
         ToastAndroid.TOP
       );
-    }else{
-      console.log(this.state.userName +" ---- "+this.state.pwd)
+    } else {
+      // console.log(this.state.userName + " ---- " + this.state.pwd);
+      var url = 'http://192.168.1.154:8080/user/login';
+      var config = {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'uname=' + this.state.userName + '&upwd=' + this.state.pwd
+      };
+      fetch(url, config).then(response =>
+        response.json()
+      ).then(res => {
+        if (res.code == 200) {
+          this.props.navigation.navigate('main');
+        } else {
+          ToastAndroid.showWithGravity(
+            "用户名或密码错误，请重输",
+            ToastAndroid.SHORT,
+            ToastAndroid.TOP
+          );
+          this.setState({ userName: '', pwd: '' })
+        }
+      })
     }
   }
 
